@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CTS NPN – ICU Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Header -->
+    <div class="header">
+        <h1>CTS NPN – Smart ICU Resource Allocation</h1>
+        <p>AI-powered ICU bed & ventilator allocation dashboard</p>
+        <button onclick="toggleDarkMode()">🌙 Toggle Dark Mode</button>
+    </div>
+
+    <!-- ICU STATUS -->
+    <div class="grid status-grid">
+        <div class="card">
+            <h3>🛏 ICU Beds</h3>
+            <p><span id="bedsCount">--</span> Available</p>
+            <div class="progress">
+                <div id="bedsBar" class="progress-fill"></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>🫁 Ventilators</h3>
+            <p><span id="ventsCount">--</span> Available</p>
+            <div class="progress">
+                <div id="ventsBar" class="progress-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <!-- WORKFLOW -->
+    <div class="grid workflow-grid">
+
+        <!-- Add Patient -->
+        <div class="card">
+            <h2>Add Patient</h2>
+            <input id="name" placeholder="Patient Name">
+            <input id="age" type="number" placeholder="Age">
+
+            <select id="gender">
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <input id="disease" placeholder="Disease">
+            <button onclick="addPatient()">Add Patient</button>
+        </div>
+
+        <!-- Add Vitals -->
+        <div class="card">
+            <h2>Add Vitals</h2>
+            <input id="pid" placeholder="Patient ID">
+            <input id="hr" placeholder="Heart Rate">
+            <input id="spo2" placeholder="SpO₂">
+            <input id="sbp" placeholder="Systolic BP">
+            <input id="dbp" placeholder="Diastolic BP">
+            <input id="rr" placeholder="Respiration Rate">
+            <button onclick="addVitals()">Add Vitals</button>
+        </div>
+
+        <!-- Allocate ICU -->
+        <div class="card allocate-card">
+            <h2>Allocate ICU Resource</h2>
+
+            <input id="alloc_pid" placeholder="Patient ID">
+            <button onclick="allocate()">Allocate</button>
+
+            <div id="loader" class="loader" style="display:none;">
+                <div class="bar"></div>
+            </div>
+
+            <!-- Severity -->
+            <div id="severityBadge" class="severity-badge"></div>
+
+            <h4>Reasons</h4>
+            <ul id="reasonList"></ul>
+
+            <h5>Decision Explanation</h5>
+            <ul id="explanationList"></ul>
+
+            <pre id="result" class="result"></pre>
+        </div>
+        <!-- Allocation Timeline -->
+<div class="card">
+    <h2>Recent ICU Allocations</h2>
+    <ul id="timeline"></ul>
+</div>
+
+<!-- Patient History -->
+<div class="card">
+    <h2>Patient History</h2>
+    <table class="history-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="patientTable"></tbody>
+    </table>
+</div>
+
+<!-- Severity Chart -->
+<div class="card">
+    <h2>Severity Distribution</h2>
+    <canvas id="severityChart" height="120"></canvas>
+</div>
+
+
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="script.js"></script>
+</body>
+</html>
